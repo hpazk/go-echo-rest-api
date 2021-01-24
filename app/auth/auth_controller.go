@@ -56,8 +56,13 @@ func (controller AuthController) Register(c echo.Context) error {
 
 	// need Response Formatter
 	user := services.GetUsersService().AddUser(params.Name, params.Email, params.Password)
-
-	return c.JSON(http.StatusOK, user)
+	response := helpers.ResponseFormatter{
+		Code:    201,
+		Status:  "success",
+		Message: "user successfully registered",
+		Data:    user,
+	}
+	return c.JSON(http.StatusCreated, response)
 }
 
 func (controller AuthController) Login(c echo.Context) error {

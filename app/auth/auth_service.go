@@ -8,7 +8,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/hpazk/go-echo-rest-api/app/config"
 	"github.com/hpazk/go-echo-rest-api/app/middlewares"
-	UserModels "github.com/hpazk/go-echo-rest-api/app/models/users"
+	UserModel "github.com/hpazk/go-echo-rest-api/app/models/users"
 )
 
 type authService struct{}
@@ -23,17 +23,11 @@ func GetAuthService() AuthService {
 	return singleton
 }
 
-//func SetAuthService(service AuthService) AuthService {
-//	original := singleton
-//	singleton = service
-//	return original
-//}
-
 type AuthService interface {
-	GetAccessToken(user *UserModels.User) (string, error)
+	GetAccessToken(user *UserModel.User) (string, error)
 }
 
-func (s *authService) GetAccessToken(user *UserModels.User) (string, error) {
+func (s *authService) GetAccessToken(user *UserModel.User) (string, error) {
 	claims := &middlewares.JWTCustomClaims{
 		Name: user.Name,
 		ID:   user.ID,

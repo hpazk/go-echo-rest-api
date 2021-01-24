@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/hpazk/go-echo-rest-api/app/auth"
+	"github.com/hpazk/go-echo-rest-api/app/controllers"
 	"github.com/hpazk/go-echo-rest-api/app/helpers"
 	"github.com/labstack/echo/v4"
 )
@@ -9,6 +10,7 @@ import (
 func DefineAPIRoutes(e *echo.Echo) {
 	controllers := []helpers.Controller{
 		auth.AuthController{},
+		controllers.ProductsController{},
 	}
 
 	var routes []helpers.Route
