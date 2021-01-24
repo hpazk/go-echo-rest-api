@@ -14,13 +14,13 @@ type (
 	}
 
 	RegisterRequest struct {
-		Email    string `json:"email" form:"email" query:"email" validate:"email, required"`
+		Email    string `json:"email" form:"email" query:"email" validate:"email,required"`
+		Name     string `json:"name" validate:"required"`
 		Password string `json:"password" validate:"required"`
-		Name     string `json:"name" validate:"name"`
 	}
 
 	LoginRequest struct {
-		Email    string `json:"email" form:"email" query:"email" validate:"email, required"`
+		Email    string `json:"email" form:"email" query:"email" validate:"email,required"`
 		Password string `json:"password" validate:"required"`
 	}
 )
@@ -54,7 +54,10 @@ func (controller AuthController) Register(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "email is already used")
 	}
 
-	return c.JSON(http.StatusOK, "users")
+	// need Response Formatter
+	user := services.GetUsersService().AddUser(params.Name, params.Email, params.Password)
+
+	return c.JSON(http.StatusOK, user)
 }
 
 func (controller AuthController) Login(c echo.Context) error {

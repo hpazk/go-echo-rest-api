@@ -3,7 +3,9 @@ package main
 import (
 	"log"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/hpazk/go-echo-rest-api/app/database"
+	"github.com/hpazk/go-echo-rest-api/app/helpers"
 	"github.com/hpazk/go-echo-rest-api/app/routes"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
@@ -18,7 +20,7 @@ func main() {
 
 	//Define API wrapper
 	api := echo.New()
-	// api.Validator = &common.CustomValidator{Validator: validator.New()}
+	api.Validator = &helpers.CustomValidator{Validator: validator.New()}
 	api.Use(middleware.Logger())
 	api.Use(middleware.Recover())
 	// CORS middleware for API endpoint.
