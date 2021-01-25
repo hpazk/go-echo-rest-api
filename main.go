@@ -57,5 +57,5 @@ func main() {
 		return
 	})
 	// server.Logger.Fatal(server.Start(":" + os.Getenv("APP_PORT")))
-	server.Logger.Fatal(server.Start(":8080"))
+	server.Logger.Fatal(server.Start("127.0.0.1:8080"))
 }
