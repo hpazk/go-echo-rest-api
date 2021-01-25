@@ -11,6 +11,7 @@ func DefineAPIRoutes(e *echo.Echo) {
 	controllers := []helpers.Controller{
 		auth.AuthController{},
 		controllers.ProductsController{},
+		controllers.PublicController{},
 	}
 
 	var routes []helpers.Route
