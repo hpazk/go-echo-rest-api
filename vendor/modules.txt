@@ -12,6 +12,10 @@ github.com/go-playground/validator/v10
 # github.com/golangkit/formatime v0.0.0-20191104073810-5264c15ae8ec
 ## explicit
 github.com/golangkit/formatime
+# github.com/heroku/x v0.0.0-20171004170240-705849e307dd
+## explicit
+github.com/heroku/x/hmetrics
+github.com/heroku/x/hmetrics/onload
 # github.com/jinzhu/gorm v1.9.16
 ## explicit
 github.com/jinzhu/gorm
@@ -71,5 +75,3 @@ golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
-# gopkg.in/gormigrate.v1 v1.6.0
-## explicit

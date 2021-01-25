@@ -6,7 +6,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-playground/validator/v10 v10.4.1
 	github.com/golangkit/formatime v0.0.0-20191104073810-5264c15ae8ec
-	github.com/heroku/x v0.0.26 // indirect
+	github.com/heroku/x v0.0.0-20171004170240-705849e307dd
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.3.0
 	github.com/labstack/echo/v4 v4.1.17
