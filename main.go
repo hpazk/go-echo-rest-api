@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/go-playground/validator/v10"
+	_ "github.com/heroku/x/hmetrics/onload"
 	"github.com/hpazk/go-echo-rest-api/app/database"
 	"github.com/hpazk/go-echo-rest-api/app/helpers"
 	"github.com/hpazk/go-echo-rest-api/app/routes"
