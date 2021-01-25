@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/hpazk/go-echo-rest-api/app/database"
@@ -20,6 +21,7 @@ type (
 		Price         int    `json:"price" validate:"required"`
 		ProductRating int    `json:"product_rating"`
 		PicturePath   string `json:"picture_path" validate:"required"`
+		CategoryID    int    `json:"category_id" validate:"required"`
 	}
 )
 
@@ -29,6 +31,12 @@ func (controller ProductsController) Routes() []helpers.Route {
 			Method:     echo.GET,
 			Path:       "/products",
 			Handler:    controller.GetProducts,
+			Middleware: []echo.MiddlewareFunc{middlewares.JWTMiddleWare()},
+		},
+		{
+			Method:     echo.GET,
+			Path:       "/products/:productId",
+			Handler:    controller.GetProduct,
 			Middleware: []echo.MiddlewareFunc{middlewares.JWTMiddleWare()},
 		},
 		{
@@ -50,21 +58,43 @@ func (controller ProductsController) Routes() []helpers.Route {
 	}
 }
 
-func (controller ProductsController) GetProducts(c echo.Context) error {
-	// db := database.GetInstance()
-	// var product []ProductModel.Product
-	// db.Find(&product)
-	return c.String(http.StatusOK, "product")
+func (controller ProductsController) GetProduct(c echo.Context) error {
+	productId := c.Param("productId")
+	db := database.GetInstance()
+	var product ProductModel.Product
+	err := db.First(&product, "id = ?", productId).Error
+	if err != nil {
+		response := helpers.ResponseFormatter{
+			Code:    404,
+			Status:  "error",
+			Message: fmt.Sprintf("product id %s not found", productId),
+		}
 
-	// user := c.Get("user").(*jwt.Token)
-	// claims := user.Claims.(*middlewares.JWTCustomClaims)
-	// // if claims.Role == "CUSTOMER" {
-	// // 	db := database.GetInstance()
-	// // 	var products []productModel.Product
-	// // 	db.Find(&products)
-	// // 	return c.JSON(http.StatusOK, products)
-	// // }
-	// return c.JSON(http.StatusOK, claims.Role)
+		return c.JSON(http.StatusNotFound, response)
+	}
+
+	response := helpers.ResponseFormatter{
+		Code:    200,
+		Status:  "success",
+		Message: "get product successfully",
+		Data:    product,
+	}
+	return c.JSON(http.StatusOK, response)
+}
+
+func (controller ProductsController) GetProducts(c echo.Context) error {
+	db := database.GetInstance()
+	var products []ProductModel.Product
+	db.Preload("Category").Find(&products)
+	fmt.Println(products)
+
+	response := helpers.ResponseFormatter{
+		Code:    200,
+		Status:  "success",
+		Message: "get products successfully fetched",
+		Data:    products,
+	}
+	return c.JSON(http.StatusOK, response)
 }
 
 func (controller ProductsController) AddProduct(c echo.Context) error {
@@ -83,7 +113,20 @@ func (controller ProductsController) AddProduct(c echo.Context) error {
 	product.Price = params.Price
 	product.ProductRating = params.ProductRating
 	product.PicturePath = params.PicturePath
-	db.Create(&product)
-
-	return c.JSON(http.StatusOK, product)
+	product.CategoryID = params.CategoryID
+	if err := db.Create(&product).Error; err != nil {
+		err_response := helpers.ResponseFormatter{
+			Code:    500,
+			Status:  "error",
+			Message: "something went wrong",
+		}
+		return c.JSON(http.StatusInternalServerError, err_response)
+	}
+	response := helpers.ResponseFormatter{
+		Code:    201,
+		Status:  "success",
+		Message: "products saved",
+		Data:    product,
+	}
+	return c.JSON(http.StatusOK, response)
 }

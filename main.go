@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/go-playground/validator/v10"
@@ -29,13 +30,20 @@ func main() {
 		AllowMethods: []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
 	}))
 	db := database.GetInstance()
-	m := database.GetMigrations(db)
-	err = m.Migrate()
-	if err == nil {
-		print("Migrations did run successfully")
+	err = database.GetMigrations(db)
+	if err != nil {
+		fmt.Println("migrations failed.", err)
 	} else {
-		print("migrations failed.", err)
+		fmt.Println("Migrations did run successfully")
 	}
+
+	// m := database.GetMigrations(db)
+	// err = m.Migrate()
+	// if err == nil {
+	// 	print("Migrations did run successfully")
+	// } else {
+	// 	print("migrations failed.", err)
+	// }
 	routes.DefineAPIRoutes(api)
 
 	server := echo.New()

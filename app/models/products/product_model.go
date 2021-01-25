@@ -11,4 +11,6 @@ type Product struct {
 	Price         int
 	ProductRating int
 	PicturePath   string
+	CategoryID    int
+	Category      Category `gorm:"ForeignKey:CategoryID"`
 }
