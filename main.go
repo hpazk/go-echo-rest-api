@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/hpazk/go-echo-rest-api/app/database"
@@ -57,5 +56,6 @@ func main() {
 
 		return
 	})
-	server.Logger.Fatal(server.Start(":" + os.Getenv("APP_PORT")))
+	// server.Logger.Fatal(server.Start(":" + os.Getenv("APP_PORT")))
+	server.Logger.Fatal(server.Start(":8080"))
 }
