@@ -13,7 +13,7 @@ Membangun REST API untuk aplikasi pemesanan Jersey.
 Membuat dokumentasi API menggunakan Postman (sample)
 [https://documenter.getpostman.com/view/6704704/TVzXBuyh](https://documenter.getpostman.com/view/6704704/TVzXBuyh)
 
-### Testing
+### API Server
 
 Aplikasi di Deploy ke Heroku (sample)
 
