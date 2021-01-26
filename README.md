@@ -11,10 +11,10 @@ Membangun REST API untuk aplikasi pemesanan Jersey.
 ### API Documentation
 
 Membuat dokumentasi API menggunakan Postman (sample)
-[https://documenter.getpostman.com/view/6704704/TVzXBuyh](https://documenter.getpostman.com/view/6704704/TVzXBuyh)
+[https://documenter.getpostman.com/view/6704704/TW6uq9Xf](https://documenter.getpostman.com/view/6704704/TW6uq9Xf)
 
 ### API Server
 
 Aplikasi di Deploy ke Heroku (sample)
 
-[https://jerseyliciouz-api.herokuapp.com/api/products](https://jerseyliciouz-api.herokuapp.com/api/products)
+[https://jerseyliciouz-api.herokuapp.com/index.html](https://jerseyliciouz-api.herokuapp.com/index.html)
