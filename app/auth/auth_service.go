@@ -29,7 +29,7 @@ type AuthService interface {
 
 func (s *authService) GetAccessToken(user *UserModel.User) (string, error) {
 	claims := &middlewares.JWTCustomClaims{
-		Name: user.Name,
+		Name: user.FirstName,
 		ID:   user.ID,
 		Role: user.Role,
 		StandardClaims: jwt.StandardClaims{
